@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css时钟</title>
+    <style>
+        body{
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+        }
+        main{
+            position: relative;
+            width: 400px;
+            height: 400px;
+            background-color: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #fff;
+            /* 让 main 里的 div 弹性居中 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #clock{
+            width: 370px;
+            height: 370px;
+            background-color: #000;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #fff inset;
+            /* 让 clock 里的 num 弹性居中 */
+            /* 之后在一个一个调数字 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        main #clock .num{
+            position: absolute;
+            color: #fff;
+            font-size: 50px;
+            font-weight: 800;
+        }
+        .num:first-child{
+            top: 15px;
+        }
+        .num:nth-child(2){
+            right: 25px;
+        }        
+        .num:nth-child(3){
+            bottom: 15px;
+        }
+        .num:nth-child(4){
+            left: 25px;
+        }
+        main .aa{
+            /* 因为 main 开启了相对定位，所以这里 aa 开启绝对定位 */
+            position: absolute;
+            top: 0;
+            width: 6px;
+            height: 40px;
+            background-color: #fff;
+            transform-origin: center 200px;
+        }
+        main #circle{
+            /* 脱离文本流 绝对定位 */
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #fff;
+            box-shadow: 0 0 10px #fff;
+            border-radius: 50%;
+        }        
+        main #_hour{
+            /* 脱离文本流 绝对定位 */
+            position: absolute;
+            top: 50%;
+            width: 15px;
+            height: 70px;
+            background-color: #fff;
+            box-shadow: 0 0 10px #fff;
+            transform: translateY(-100%) rotate(1deg);
+            transform-origin: center bottom;
+        }
+        main #_min{
+            /* 脱离文本流 绝对定位 */
+            position: absolute;
+            top: 50%;
+            width: 10px;
+            height: 100px;
+            background-color: #fff;
+            box-shadow: 0 0 10px #fff;
+            transform: translateY(-100%);
+            transform-origin: center bottom;
+        }
+        main #_sec{
+            /* 脱离文本流 绝对定位 */
+            position: absolute;
+            top: 50%;
+            width: 5px;
+            height: 130px;
+            background-color: #fff;
+            box-shadow: 0 0 10px #fff;
+            transform: translateY(-100%);
+            transform-origin: center bottom;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div id="clock">
+            <div class="num">12</div>
+            <div class="num">3</div>
+            <div class="num">6</div>
+            <div class="num">9</div>
+        </div>
+        <div id="circle"></div>
+        <div id="_hour"></div>
+        <div id="_min"></div>
+        <div id="_sec"></div>
+    </main>
+</body>
+    <script>
+        let oClock = document.querySelector("#clock");
+        let oHour = document.querySelector("#_hour");
+        let oMin = document.querySelector("#_min");
+        let oSec = document.querySelector("#_sec");
+        for (let i = 1; i < 12; ++i) {
+            oH = document.createElement('div');
+            oH.className = 'aa';
+            if (i % 3 != 0) {
+                oH.style.transform = 'rotate('+ 30 * i +'deg)';
+                oClock.appendChild(oH);
+            }
+        }
+
+        let run = () => {
+            let oDate = new Date();
+            let iH = oDate.getHours();
+            let iM = oDate.getMinutes();
+            let iS = oDate.getSeconds();
+            console.log(30 * (iH % 12) + 30 * (iM / 60));
+            // oHour.style.transform = "translateY(-100%) rotate(" + 30 * (iH % 12) + "deg)"
+            oHour.style.transform = "translateY(-100%) rotate(" + (30 * (iH % 12) + 30 * (iM / 60)) + "deg)"
+            oMin.style.transform = "translateY(-100%) rotate(" + 6 * iM + "deg)"
+            oSec.style.transform = "translateY(-100%) rotate(" + 6 * iS + "deg)"
+        }
+        run();
+        setInterval(run,1000); 
+    </script>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>按钮</title>
+    <style>
+        div{
+            margin: 150px auto;
+            width: 300px;
+            height: 100px;
+            background-color: #4caf50;
+            color: #fff;
+            font-size: 38px;
+            text-align: center;
+            line-height: 100px;
+            border-radius: 15px;
+            box-shadow: 0 15px #999;
+        }
+        div:hover{
+            background-color: #3e8e41;
+            cursor: pointer;
+        }
+        div:active{
+            box-shadow: 0 7px #666;
+            transform: translateY(8px);
+        }
+        #no_select{
+            /*双击文字、input等，出现的蓝色底色，如何去除*/
+            -moz-user-select:none;/*火狐*/
+            -webkit-user-select:none;/*webkit浏览器*/
+            -ms-user-select:none;/*IE10*/
+            /*-khtml-user-select:none;!*早期浏览器*!*/
+            user-select:none;
+        }
+    </style>
+</head>
+<body>
+    <div onselectstart="return false;">Click1</div>
+    <div id="no_select" >Click2</div>
+    <div>Click3</div>
+</body>
+</html>

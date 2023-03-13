@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            width: 100vw;
+            height: 100vh;
+            background-color: yellowgreen;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .heading{
+            font-size: 50px;
+            color: #fff;
+            text-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+        }
+        .heading span{
+            display: inline-block;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .heading span:hover{
+            transform: translateY(-20px) rotate(10deg) scale(2);
+        }
+    </style>
+</head>
+<body>
+    <h2 class="heading">HAPPY HOUR!</h2>
+</body>
+    <script>
+        let oHead = document.querySelector(".heading");
+        let addSpan = content => {
+            return [...content].map(letter => `<span>${letter}</span>`).join('');
+        }
+        let word = addSpan(oHead.textContent);
+        oHead.innerHTML = word;
+    </script>
+</html>

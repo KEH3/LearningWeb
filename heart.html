@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>爱心</title>
+    <style>
+        body{
+            background-color: #000;
+        }
+        #main{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .heart{
+            border-radius: 10px;
+            margin-top: 50px;
+            margin-right: 5px;
+            width: 10px;
+            height: 20px;
+            background-color: rgb(187, 70, 105);
+            animation: action 2s infinite alternate;
+        }
+        @keyframes action{
+            from{
+                scale: 0;
+            }
+            to{
+                scale: 1;
+            }
+        }        
+        #main .heart:nth-child(2){
+            height: 40px;
+            background-color: red;
+        }        
+        #main .heart:nth-child(3){
+            height: 70px;
+            background-color: rgb(182, 59, 65);
+        }        
+        #main .heart:nth-child(4){
+            transform: translateY(15px);
+            height: 80px;
+            background-color: rgb(124, 82, 82);
+        }        
+        #main .heart:nth-child(5){
+            transform: translateY(25px);
+            height: 90px;
+            background-color: rgb(230, 38, 38);
+        }        
+        #main .heart:nth-child(6){
+            transform: translateY(15px);
+            height: 80px;
+            background-color: rgb(95, 3, 3);
+        }        
+        #main .heart:nth-child(7){
+            height: 70px;
+            background-color: rgb(238, 20, 20);
+        }        
+        #main .heart:nth-child(8){
+            height: 40px;
+            background-color: rgb(219, 155, 155);
+        }        
+        #main .heart:nth-child(9){
+            background-color: rgb(175, 64, 64);
+        }
+
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <div class="heart"></div>
+    </div>
+</body>
+</html>

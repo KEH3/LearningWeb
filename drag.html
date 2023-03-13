@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5拖拽</title>
+    <style>
+        div{
+            width: 400px;
+            height: 400px;
+            border: 1px solid #aaa;
+            margin-right: 100px;
+            padding: 10px;
+            float: left;
+        }
+        #cc{
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div id="aa" ondragover="dragover(event)" ondrop="drop(event)"><h1>拖动照片到方框中</h1></div>
+    <img id="cc" src="./image/peanuts.jpg" alt="" draggable="true" ondragstart="drag(event)">
+</body>
+    <script>
+        let drag = (ev) => {
+            ev.dataTransfer.setData("Text",ev.target.id);
+        }
+        let drop = (ev) => {
+            let data = ev.dataTransfer.getData("Text");
+            let oIma = document.getElementById(data);
+            ev.target.appendChild(oIma);
+        }
+        let dragover = (ev) => {
+            ev.preventDefault();
+            // 阻止浏览器禁止拖动的默认行为
+        }
+    </script>
+</html>
