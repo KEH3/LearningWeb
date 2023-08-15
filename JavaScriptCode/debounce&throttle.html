@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style></style>
+</head>
+
+<body>
+  <p>使用说明：</p>
+  <p>1. 点击防抖debounce按钮时，速度足够快只会打印一次，也就是结束的那一次，先前的操作都被打断了需要重新计时</p>
+  <p>2. 点击节流throttle按钮时，不管你速度多快，都只会按照预先设置的时间间隔执行，不疾不徐</p>
+  <button id="btn1">防抖debounce</button>
+  <button id="btn2">节流throttle</button>
+</body>
+<script>
+  // 定义防抖函数
+  let debounce = (fn, delay) => {
+    let timer = null
+    return (...args) => {
+      if (timer) clearTimeout(timer)
+      timer = setTimeout(() => {
+        fn.apply(this, args)
+      }, delay)
+    }
+  }
+  let originF1 = () => console.log('防抖 n秒内有重复操作打断会重新计时')
+  let debounceF1 = debounce(originF1, 1000)
+  let btn1 = document.querySelector('#btn1')
+  btn1.addEventListener('click', debounceF1)
+
+  // 定义节流函数
+  let throttle = (fn, delay) => {
+    let flag = true
+    return (...args) => {
+      if (!flag) return
+      flag = false
+      setTimeout(() => {
+        fn.apply(this, args)
+        flag = true
+      }, delay)
+    }
+  }
+  let originF2 = () => console.log('节流 n秒内有重复操作会忽略满足时间才执行')
+  let throttleF2 = throttle(originF2, 1000)
+  let btn2 = document.querySelector('#btn2')
+  btn2.addEventListener('click', throttleF2)
+</script>
+
+</html>
