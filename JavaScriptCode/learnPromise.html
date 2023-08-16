@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学习Promise</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  let fn = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(1)
+      console.log(fn)
+    }, 6000);
+  })
+  console.log(fn)
+
+
+  // let p1 = new Promise((resolve, rejected) => {
+  //   resolve(1)
+  // })
+  // console.log(p1)
+  // let num1 = p1.then((res) => {
+  //   console.log(res);
+  //   return 'nbnbnb'
+  // })
+  // num1.then((res) => {
+  //   console.log(res);
+  // }) 
+</script>
+
+</html>

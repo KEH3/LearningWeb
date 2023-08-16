@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>用settimeout实现setInterval</title>
+</head>
+
+<body>
+  <p>使用说明：</p>
+  <p>1. 点击set按钮开启myInterval定时器</p>
+  <p>2. 点击clear按钮开启myInterval定时器</p>
+  <button id="btn1">set</button>
+  <button id="btn2">clear</button>
+</body>
+<script>
+  // 设置周期性定时器
+  let timer = null
+  const setMyInterval = (fn, delay) => {
+    timer = setTimeout(() => {
+      fn()
+      setMyInterval(fn, delay)
+    }, delay)
+  }
+
+  // 清除周期性定时器
+const clearMyInternal = (timer) => {
+  clearTimeout(timer)
+  console.log('周期性定时器已清除')
+}
+
+  let btn1 = document.querySelector('#btn1')
+  let btn2 = document.querySelector('#btn2')
+  btn1.addEventListener('click', function () {
+    this.setAttribute('disabled', 'disabled')
+    setMyInterval(() => console.log('<--每秒执行一次'), 1000)
+  })
+  btn2.addEventListener('click', function () {
+    btn1.removeAttribute('disabled')
+    clearMyInternal(timer)
+  })
+</script>
+
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>发布订阅模式</title>
+</head>
+
+<body>
+  <h1>发布订阅模式：</h1>
+  <h2>发布订阅模式中，称为发布者的消息发送者不会将消息直接发送给订阅者，
+    这意味着发布者和订阅者不知道彼此的存在。在发布者和订阅者之间存在第三个组件，
+    称为调度中心或事件通道，它维持着发布者和订阅者之间的联系，
+    过滤所有发布者传入的消息并相应地分发它们给订阅者。
+  </h2>
+  <hr>
+  <h1>观察者模式:</h1>
+  <h2>在目标和观察者之间是没有事件通道的。一方面，观察者要想订阅目标事件，由于没有事件通道，
+    因此必须将自己添加到目标(Subject) 中进行管理；另一方面，目标在触发事件的时候，
+    也无法将通知操作(notify) 委托给事件通道，因此只能亲自去通知所有的观察者。
+  </h2>
+</body>
+<script>
+  console.log('')
+  class PubSub {
+    constructor() {
+      this.subscribers = {};
+    }
+
+    subscribe(topic, callback) {
+      this.subscribers[topic] ? this.subscribers[topic].push(callback) : this.subscribers[topic] = [callback]
+    }
+
+    publish(topic, ...args) {
+      if (!this.subscribers[topic]) return
+      // 遍历执行该时间回调函数并传递参数
+      this.subscribers[topic].forEach(callback => callback(...args))
+    }
+  }
+
+  // 创建事件调度中心，为订阅者和发布者提供调度服务
+  let pubSub = new PubSub();
+  // A订阅了e1事件（A只关注e1本身，而不关心谁发布这个事件）
+  pubSub.subscribe('e1', (msg) => {
+    console.log(`我是A我收到了${msg}`)
+  });
+  // B订阅了e1事件
+  pubSub.subscribe('e1', (msg) => {
+    console.log(`我是B我收到了${msg}`)
+  });
+  // C订阅了e1事件
+  pubSub.subscribe('e2', (msg) => {
+    console.log(`我是C我收到了${msg}`)
+  });
+  // X发布了e1事件（Y只关注e1本身，不关心谁订阅了这个事件）
+  // 在发布的时候调用所有订阅者的回调函数
+  pubSub.publish('e1', 'I published `e1` event');
+  pubSub.publish('e2', 'I published `e2` event');
+
+  console.log('观察者模式:')
+  // 传统的观察者模式，
+  class Subject {
+    constructor() {
+      this.observers = [];
+    }
+
+    add(observer) {
+      this.observers.push(observer);
+    }
+
+    notify(...args) {
+      this.observers.forEach(observer => observer.update(...args));
+    }
+  }
+
+  class Observer {
+    update(...args) {
+      console.log(...args);
+    }
+  }
+
+  // 创建观察者ob1
+  let ob1 = new Observer();
+  // 创建观察者ob2
+  let ob2 = new Observer();
+  // 创建目标sub
+  let sub = new Subject();
+  // 目标sub添加观察者ob1 （目标和观察者建立了依赖关系）
+  sub.add(ob1);
+  // 目标sub添加观察者ob2
+  sub.add(ob2);
+  // 目标sub触发SMS事件（目标主动通知观察者）
+  sub.notify('I fired `SMS` event');
+</script>
+
+</html>
